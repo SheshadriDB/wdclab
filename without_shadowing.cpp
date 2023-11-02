@@ -21,5 +21,5 @@ plot(d,PL);
 legend('retail store','grocery store','office hard partition','office soft partition','office soft partition','textile/chemical','textile/chemical','paper/cereals','metalworking','indoor street','textil/chemical');
 xlabel('distance in m');
 ylabel('path loss in db');
-title('LOG-DISTANCE PATH LOSS INDOOR PROPAGATION MODEL(WITH SHADOWING EFFECT');
+title('LOG-DISTANCE PATH LOSS INDOOR PROPAGATION MODEL(NO SHADOWING EFFECT');
 grid on;
