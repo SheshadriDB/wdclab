@@ -1,46 +1,53 @@
-#include<stdio.h>
-#include<conio.h>
-#include<string.h>
-#define N strlen(g)
-char t[128],cs[128],g[]="10110";
-int a,e,c;
-void xor(){
-for (c=1;c<N;c++)cs[c]=((cs[c]==g[c])?'0':'1');
-}
-void crc()
+#include <stdio.h>
+#include <ctype.h>
+#include <conio.h>
+#define MAX 1000
+ 
+int main()
 {
-	for(e=0;e<N;e++)cs[e]=t[e];
-	do{
-		if(cs[0]=='1')xor();
-		for (c=0;c<N-1;c++)cs[c]=cs[c+1];
-		cs[c]=t[e++];
-	}
-	while(e<=a+N-1);
+	{
+int s, pi, ci;
+char plain[MAX], cipher[MAX];
+
+printf("*** Encryption & decryption using substitution cipher ***\n\n");
+printf("Enter the plain text:\n");
+gets(plain);
+while(1)
+{
+printf("\nKey (number of shifts per character) for encryption : ");
+scanf("%d", &s);
+if(s < 1 || s > 25) // || logical or function 
+printf("Bad input! Enter a value between 1 and 25.");
+else
+break;
 }
-void main (){
-	printf("\n enterpoly:");scanf("%s",t);
-	printf("\n generating polynomial is:%s",g);
-	a=strlen(t);
-	for(e=a;e<a+N-1;e++)t[e]='0';
-	printf("\n modified t[u] is:%s",t);
-	crc();
-	printf("\n checksum is:%s",cs);
-	  
-	//rx
-	for(e=a;e<a+N-1;e++)t[e]=cs[e-a];
-	printf("\n final codeword is:%s",t);
-	int check,gg;
-	printf("\n test error detection 0(yes) 1(no)?");
-	scanf("%d",&check);
-	if(check==0){
-		printf("\n enter position for insert error:");
-		scanf("%d",&gg);
-		t[gg]=(t[gg]=='1'?'0':'1');
-		printf("\n errorneous data:%s:",t);
-			printf("\n error: ");
+printf("\nAfter removing non alphabetical characters and capitalizing:\n");
+for(ci = 0, pi = 0; plain[pi] != '\0'; pi++)
+if(isalpha(plain[pi]))   // If a character passed to isalpha() is an alphabet, it returns a non-zero integer, if not it returns 0
+{
+putchar(toupper(plain[pi]));
+ // The toupper() function is used to convert lowercase alphabet to uppercase
+// putchar() function is a file handling function in which is used to write a character on standard output/screen. 
+
+cipher[ci++] = ((toupper(plain[pi]) - 'A') + s% 26) % 26 + 'A';
+}
+cipher[ci] = '\0';
+printf("\n\nAfter encryption:\n%s\n", cipher);
+while(1)
+{
+printf("\nKey for decryption : ");
+scanf("%d", &s);
+if(s< 1 || s> 25)
+printf("Bad input! Enter a value between 1 and 25.");
+else
+break;
+}
+for(pi = 0, ci = 0; cipher[ci] != '\0'; ci++)
+plain[pi++] = ((cipher[ci] - 'A') + (26 - s)) % 26 + 'A';
+plain[pi] = '\0';
+printf("\nAfter decryption:\n%s", plain);
+//return 0;
 	}
-	else {
-		printf("\n no error");
-	}
-	getch();
+getch();
+
 }
